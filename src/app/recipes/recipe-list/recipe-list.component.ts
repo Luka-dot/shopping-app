@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Recipe } from '../recipe.model'
 
 @Component({
@@ -7,6 +7,7 @@ import { Recipe } from '../recipe.model'
   styleUrls: ['./recipe-list.component.css']
 })
 export class RecipeListComponent implements OnInit {
+  @Output() recipeWasSelected = new EventEmitter<Recipe>();
   // defining type. TS will expect Recipe class[] with recipes in it
   recipes: Recipe[] = [
     new Recipe('A Test Recipe', 'Just a test recipe', 'https://upload.wikimedia.org/wikipedia/commons/4/4f/17th_Century_Food.jpg'),
@@ -16,6 +17,10 @@ export class RecipeListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onRecipeSelected(recipe: Recipe) {
+    this.recipeWasSelected.emit(recipe)
   }
 
 }
