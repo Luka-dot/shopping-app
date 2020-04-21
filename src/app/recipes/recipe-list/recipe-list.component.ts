@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Recipe } from '../recipe.model'
+import { RecipeService } from '../recipe.service';
 
 @Component({
   selector: 'app-recipe-list',
@@ -9,14 +10,12 @@ import { Recipe } from '../recipe.model'
 export class RecipeListComponent implements OnInit {
   @Output() recipeWasSelected = new EventEmitter<Recipe>();
   // defining type. TS will expect Recipe class[] with recipes in it
-  recipes: Recipe[] = [
-    new Recipe('A Test Recipe', 'Just a test recipe', 'https://upload.wikimedia.org/wikipedia/commons/4/4f/17th_Century_Food.jpg'),
-    new Recipe('2nd Test Recipe', 'Just Another test recipe', 'https://upload.wikimedia.org/wikipedia/commons/4/4f/17th_Century_Food.jpg')
-  ];
+  recipes: Recipe[];
 
-  constructor() { }
+  constructor(private recipeService: RecipeService ) { }
 
   ngOnInit(): void {
+    this.recipes = this.recipeService.getRecipes();
   }
 
   onRecipeSelected(recipe: Recipe) {
