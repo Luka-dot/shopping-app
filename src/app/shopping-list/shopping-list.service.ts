@@ -16,4 +16,10 @@ export class ShoppingListService {
         this.ingredients.push(ingredient);
         this.ingredientsChange.emit(this.ingredients.slice())
       }
+
+      addIngredients(ingredients: Ingredient[]) {
+          // deconstructing instead of using for-loop to get each ingredient
+        this.ingredients.push(...ingredients);
+        this.ingredientsChange.emit(this.ingredients.slice());
+      }
 }
